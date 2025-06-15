@@ -2,91 +2,99 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot SicuraPiù</title>
+    <title>🤖 Assistente SicuraPiù Assicurazioni</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f6f6f6;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
-            padding-top: 40px;
+            padding: 30px;
         }
         .chat-container {
-            width: 420px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
         }
-        .header-box {
-            background-color: #00587A;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            margin-bottom: 15px;
+        .chat-header {
+            background-color: #004d66;
+            color: #fff;
+            padding: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
             text-align: center;
+            border-radius: 10px 10px 0 0;
         }
-        .chat-box {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-        .message {
+        .chat-bubble {
             padding: 10px;
-            border-radius: 8px;
-            margin: 5px 0;
+            margin: 8px 0;
+            border-radius: 10px;
+            max-width: 85%;
         }
         .user {
-            background-color: #e6f2ff;
-            text-align: right;
+            background-color: #e6f3ff;
+            align-self: flex-end;
+            border: 1px solid #b3d9ff;
         }
         .bot {
-            background-color: #f0f0f0;
-            text-align: left;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+        }
+        form {
+            display: flex;
+            margin-top: 10px;
         }
         input[type="text"] {
-            width: 75%;
+            flex: 1;
             padding: 8px;
-            border: 1px solid #ccc;
             border-radius: 6px;
+            border: 1px solid #ccc;
         }
         button {
-            padding: 8px 16px;
-            background-color: #00587A;
+            background-color: #004d66;
             color: white;
             border: none;
+            padding: 8px 12px;
             border-radius: 6px;
+            margin-left: 5px;
             cursor: pointer;
         }
         .footer {
-            text-align: center;
-            font-size: 11px;
+            font-size: 0.8em;
             color: #777;
+            text-align: center;
             margin-top: 10px;
         }
     </style>
 </head>
 <body>
-<div class="chat-container">
-    <div class="header-box">
-        🤖 Assistente SicuraPiù Assicurazioni
-    </div>
-    <div class="chat-box" id="chat-box">
-        {% for message in chat_log %}
-            <div class="message {{ message['role'] }}">{{ message['role'] }}: {{ message['text'] }}</div>
+    <div class="chat-container">
+        <div class="chat-header">🤖 Assistente SicuraPiù Assicurazioni</div>
+
+        {% for msg in chat_log %}
+            <div class="chat-bubble {{ msg.role }}">
+                <strong>{{ msg.role }}:</strong> {{ msg.text }}
+            </div>
         {% endfor %}
+
+        <form method="POST">
+            <input type="text" name="user_input" placeholder="Scrivi un messaggio..." required>
+            <button type="submit">Invia</button>
+        </form>
+
+        <form method="POST" style="margin-top: 5px;">
+            <input type="hidden" name="user_input" value="reset">
+            <button type="submit">🔄 Nuova conversazione</button>
+        </form>
+
+        <div class="footer">
+            Demo chatbot per agenzia assicurativa • Creato da Stefano
+        </div>
     </div>
-    <form action="/" method="post">
-        <input type="text" name="user_input" placeholder="Scrivi un messaggio..." required>
-        <button type="submit">Invia</button>
-    </form>
-    <div class="footer">Demo chatbot per agenzia assicurativa • Creato da Stefano</div>
-</div>
-<script>
-    const chatBox = document.getElementById("chat-box");
-    chatBox.scrollTop = chatBox.scrollHeight;
-</script>
 </body>
 </html>
+
 
